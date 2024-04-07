@@ -2,9 +2,19 @@
 
 var path = require('path');
 var http = require('http');
+var mongoose = require('mongoose');
+var schemas = require('./mongo/schemas');
+var ItemSchema = schemas.Item;
+var OrderSchema = schemas.Order;
+var ToppingSchema = schemas.Topping;
+var SandwichSchema = schemas.Sandwich;
 
 var oas3Tools = require('oas3-tools');
 var serverPort = 3001;
+const mongooseDbName = "group-yj";
+
+mongoose.connect(`mongodb://127.0.0.1:27017/${mongooseDbName}`);
+// use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 
 // swaggerRouter configuration
 var options = {
@@ -20,4 +30,3 @@ http.createServer(app).listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 });
-
