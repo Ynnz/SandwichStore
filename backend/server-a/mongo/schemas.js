@@ -1,31 +1,31 @@
 const mongoose = require('mongoose');
 
 const ItemSchema = new mongoose.Schema({
-  id: Number,
+  id: String,
   quantity: Number,
 });
 
 const OrderSchema = new mongoose.Schema({
-  id: Number,
+  id: String,
   sandwiches: [ItemSchema],
   status: String,
 });
 
 const ToppingSchema = new mongoose.Schema({
-  id: Number,
+  id: String,
   name: String,
 });
 
 const SandwichSchema = new mongoose.Schema({
-  id: Number,
+  id: String,
   name: String,
   toppings: [ToppingSchema],
   breadType: String,
 });
 
 module.exports = {
-  ItemSchema: mongoose.model('Item', ItemSchema),
-  OrderSchema: mongoose.model('Order', OrderSchema),
-  ToppingSchema: mongoose.model('Topping', ToppingSchema),
-  SandwichSchema: mongoose.model('Sandwich', SandwichSchema),
+  Item: mongoose.model('Item', ItemSchema),
+  Order: mongoose.model('Order', OrderSchema),
+  Topping: mongoose.model('Topping', ToppingSchema),
+  Sandwich: mongoose.model('Sandwich', SandwichSchema),
 };

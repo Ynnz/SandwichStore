@@ -70,8 +70,7 @@ paths:
         explode: false
         schema:
           minimum: 1
-          type: integer
-          format: int64
+          type: string
       responses:
         "200":
           description: successful operation
@@ -113,8 +112,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: integer
-          format: int64
+          type: string
       responses:
         "200":
           description: successful operation
@@ -126,8 +124,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Sandwich not found
-      security:
-      - api_key: []
       x-swagger-router-controller: Sandwich
 components:
   schemas:
@@ -137,16 +133,15 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
           description: id for a sandwich
-          format: int64
         quantity:
           type: integer
           description: The amount of sandwiches
           format: int64
       example:
+        id: '1234asd1234'
         quantity: 1
-        id: 6
     Order:
       required:
       - sandwiches
@@ -154,8 +149,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
         sandwiches:
           type: array
           items:
@@ -172,10 +166,10 @@ components:
       example:
         sandwiches:
         - quantity: 1
-          id: 6
+          id: '4321asd4321'
         - quantity: 1
-          id: 6
-        id: 0
+          id: '1234asd1234'
+        id: '1234asd1234'
         status: ordered
       xml:
         name: Order
@@ -189,13 +183,12 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
         name:
           type: string
       example:
         name: name
-        id: 6
+        id: '1234asd1234'
       xml:
         name: Tag
     Sandwich:
@@ -207,8 +200,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
         name:
           type: string
           example: my-super-sandwich
@@ -230,10 +222,10 @@ components:
         name: my-super-sandwich
         toppings:
         - name: name
-          id: 6
+          id: '4321asd4321'
         - name: name
-          id: 6
-        id: 0
+          id: '1234asd1234'
+        id: '1234asd1234'
         breadType: oat
       xml:
         name: Sandwich

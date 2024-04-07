@@ -1,4 +1,5 @@
 'use strict';
+var Sandwich = require('../mongo/schemas').Sandwich;
 
 
 /**
@@ -10,23 +11,10 @@
  **/
 exports.getSandwichById = function(sandwichId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "name" : "my-super-sandwich",
-  "toppings" : [ {
-    "name" : "name",
-    "id" : 6
-  }, {
-    "name" : "name",
-    "id" : 6
-  } ],
-  "id" : 0,
-  "breadType" : "oat"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    try{
+      resolve(Sandwich.findById(sandwichId).exec());
+    } catch (err) {
+      reject(err);
     }
   });
 }
@@ -39,34 +27,10 @@ exports.getSandwichById = function(sandwichId) {
  **/
 exports.getSandwiches = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "name" : "my-super-sandwich",
-  "toppings" : [ {
-    "name" : "name",
-    "id" : 6
-  }, {
-    "name" : "name",
-    "id" : 6
-  } ],
-  "id" : 0,
-  "breadType" : "oat"
-}, {
-  "name" : "my-super-sandwich",
-  "toppings" : [ {
-    "name" : "name",
-    "id" : 6
-  }, {
-    "name" : "name",
-    "id" : 6
-  } ],
-  "id" : 0,
-  "breadType" : "oat"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    try{
+      resolve(Sandwich.find());
+    } catch (err) {
+      reject(err);
     }
   });
 }

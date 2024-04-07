@@ -4,10 +4,10 @@ var path = require('path');
 var http = require('http');
 var mongoose = require('mongoose');
 var schemas = require('./mongo/schemas');
-var ItemSchema = schemas.Item;
-var OrderSchema = schemas.Order;
-var ToppingSchema = schemas.Topping;
-var SandwichSchema = schemas.Sandwich;
+var Item = schemas.Item;
+var Order = schemas.Order;
+var Topping = schemas.Topping;
+var Sandwich = schemas.Sandwich;
 
 var oas3Tools = require('oas3-tools');
 var serverPort = 3001;
