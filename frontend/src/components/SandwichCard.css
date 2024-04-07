@@ -1,0 +1,29 @@
+.sandwich-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .sandwich-card h3 {
+    margin: 0;
+  }
+  
+  .sandwich-card p {
+    margin: 1rem;
+    color: #666;
+  }
+  
+  .sandwich-card button {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
