@@ -1,4 +1,6 @@
 'use strict';
+var Order = require('../mongo/schemas').Order;
+var SandwichService = require('../service/SandwichService');
 
 
 /**
@@ -7,54 +9,46 @@
  * body Order place an order for a sandwich
  * returns Order
  **/
-exports.addOrder = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "sandwitches" : [ {
-    "quantity" : 1,
-    "id" : 6
-  }, {
-    "quantity" : 1,
-    "id" : 6
-  } ],
-  "id" : 0,
-  "status" : "ordered"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.addOrder = function (body) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      delete body.id; //In a case someone tries to manually put in ID
+
+      // Check if all sandwich IDs exist and are valid
+      for (let sandwich of body.sandwiches) {
+        if (!/^[\da-fA-F]{24}$/.test(sandwich.id)) {
+          return reject({ message: 'ID: ' + sandwich.id + ' does not exist or is not in a valid formation.', status: 400 });
+        }
+
+        let sandwichExists = await SandwichService.getSandwichById(sandwich.id);
+        if (!sandwichExists) {
+          return reject({
+            message: 'Sandwich with ID ' + sandwich.id + ' does not exist',
+            status: 400,
+          });
+        }
+      }
+      resolve(Order.create(body));
+    } catch (err) {
+      reject(err);
     }
   });
-}
+};
 
 
 /**
  * Find an order by its ID
- * IDs must be positive integers
+ * IDs must be string types
  *
  * orderId Long ID of the order that needs to be fetched
  * returns Order
  **/
 exports.getOrderById = function(orderId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "sandwitches" : [ {
-    "quantity" : 1,
-    "id" : 6
-  }, {
-    "quantity" : 1,
-    "id" : 6
-  } ],
-  "id" : 0,
-  "status" : "ordered"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    try{
+      resolve(Order.findById(orderId).exec());
+    } catch (err) {
+      reject(err);
     }
   });
 }
@@ -67,32 +61,10 @@ exports.getOrderById = function(orderId) {
  **/
 exports.getOrders = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "sandwitches" : [ {
-    "quantity" : 1,
-    "id" : 6
-  }, {
-    "quantity" : 1,
-    "id" : 6
-  } ],
-  "id" : 0,
-  "status" : "ordered"
-}, {
-  "sandwitches" : [ {
-    "quantity" : 1,
-    "id" : 6
-  }, {
-    "quantity" : 1,
-    "id" : 6
-  } ],
-  "id" : 0,
-  "status" : "ordered"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    try{
+      resolve(Order.find());
+    } catch (err) {
+      reject(err);
     }
   });
 }

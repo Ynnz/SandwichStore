@@ -38,7 +38,7 @@ paths:
       summary: Add an order for a sandwich
       operationId: addOrder
       requestBody:
-        description: place an order for a sandwich
+        description: NOTE THAT ID FIELD FOR THE ORDER SHOULD NOT BE SENT! It will be generated in server-side and any sent ID will be ignored. Place an order for a sandwich
         content:
           application/json:
             schema:
@@ -59,7 +59,7 @@ paths:
       tags:
       - order
       summary: Find an order by its ID
-      description: IDs must be positive integers
+      description: IDs must be string types
       operationId: getOrderById
       parameters:
       - name: orderId
