@@ -10,7 +10,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.2.0
 servers:
-- url: http://localhost/v1
+- url: http://localhost/api/
 tags:
 - name: order
   description: Sandwich orders
@@ -35,7 +35,7 @@ paths:
     post:
       tags:
       - order
-      summary: Add an order for an sandwich
+      summary: Add an order for a sandwich
       operationId: addOrder
       requestBody:
         description: place an order for a sandwich
@@ -138,25 +138,25 @@ components:
       properties:
         id:
           type: integer
-          description: id for a sandwitch
+          description: id for a sandwich
           format: int64
         quantity:
           type: integer
-          description: The amount of sandwitches
+          description: The amount of sandwiches
           format: int64
       example:
         quantity: 1
         id: 6
     Order:
       required:
-      - sandwitches
+      - sandwiches
       - status
       type: object
       properties:
         id:
           type: integer
           format: int64
-        sandwitches:
+        sandwiches:
           type: array
           items:
             $ref: '#/components/schemas/Item'
@@ -170,7 +170,7 @@ components:
           - ready
           - failed
       example:
-        sandwitches:
+        sandwiches:
         - quantity: 1
           id: 6
         - quantity: 1
