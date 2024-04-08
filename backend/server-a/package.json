@@ -16,9 +16,8 @@
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
     "mongoose": "^8.3.0",
-    "oas3-tools": "^2.2.3"
-  },
-  "devDependencies": {
+    "oas3-tools": "^2.2.3",
     "nodemon": "^3.1.0"
   }
+
 }

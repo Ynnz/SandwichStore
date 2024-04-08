@@ -10,10 +10,11 @@ var Topping = schemas.Topping;
 var Sandwich = schemas.Sandwich;
 
 var oas3Tools = require('oas3-tools');
+//TODO: Fetch serverPort from environment variables
 var serverPort = 3001;
-const mongooseDbName = "group-yj";
+const MONGODB_NAME = process.env.MONGODB_NAME || 'mongodb'; // Use 'mongodb' as the default if not set
 
-mongoose.connect(`mongodb://127.0.0.1:27017/${mongooseDbName}`);
+mongoose.connect(`mongodb://${MONGODB_NAME}:27017/group-yj-mongodb-1`);
 // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 
 // swaggerRouter configuration
