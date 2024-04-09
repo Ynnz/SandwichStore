@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Classic BLT",
+    "toppings": [],
+    "breadType": "white"
+  },
+  {
+    "name": "Turkey Club",
+    "toppings": [],
+    "breadType": "whole wheat"
+  },
+  {
+    "name": "Grilled Cheese",
+    "toppings": [],
+    "breadType": "sourdough"
+  },
+  {
+    "name": "Italian Sub",
+    "toppings": [],
+    "breadType": "ciabatta"
+  },
+  {
+    "name": "Chicken Caesar Wrap",
+    "toppings": [],
+    "breadType": "flour tortilla"
+  },
+  {
+    "name": "Vegetarian Panini",
+    "toppings": [],
+    "breadType": "multigrain"
+  },
+  {
+    "name": "Tuna Salad Sandwich",
+    "toppings": [],
+    "breadType": "rye"
+  },
+  {
+    "name": "Roast Beef Hoagie",
+    "toppings": [],
+    "breadType": "French baguette"
+  },
+  {
+    "name": "Cuban Sandwich",
+    "toppings": [],
+    "breadType": "Cuban bread"
+  },
+  {
+    "name": "Pulled Pork Sandwich",
+    "toppings": [],
+    "breadType": "brioche bun"
+  },
+  {
+    "name": "Philly Cheesesteak",
+    "toppings": [],
+    "breadType": "hoagie roll"
+  },
+  {
+    "name": "Reuben Sandwich",
+    "toppings": [],
+    "breadType": "marbled rye"
+  },
+  {
+    "name": "Egg Salad Sandwich",
+    "toppings": [],
+    "breadType": "whole grain"
+  },
+  {
+    "name": "Meatball Sub",
+    "toppings": [],
+    "breadType": "sub roll"
+  },
+  {
+    "name": "Caprese Sandwich",
+    "toppings": [],
+    "breadType": "focaccia"
+  }
+]
