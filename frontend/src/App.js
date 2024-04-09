@@ -1,18 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import CartPage from './components/CartPage';
 import OrdersPage from './components/OrdersPage';
 import SandwichCard from './components/SandwichCard';
 import './App.css';
+import { getSandwiches } from './config/api';
 
 const App = () => {
-  // Example sandwiches data
-  const sandwiches = [
-    { name: 'vegan sandwich', price: '€2.2' },
-    { name: 'egg sandwich', price: '€2.3' },
-    //{ name: 'chicken sandwich', price: '€2.4' },
-    { name: 'beef sandwich', price: '€2.5' },
-  ];
+   const [sandwiches, setSandwiches] = useState([]);
+   //Fetches the sandwiches when the app starts
+   useEffect(() => {
+     const fetchSandwiches = async () => {
+       const fetchedSandwiches = await getSandwiches();
+       setSandwiches(fetchedSandwiches);
+     };
+
+     fetchSandwiches();
+   }, []);
 
   return (
     <Router>
