@@ -1,10 +1,10 @@
-import axios from 'axios';
+const BASE_URL = 'http://localhost:3001/api';
 
-const BASE_URL = 'http://localhost:3001/api'; // replace with your server's address
-
+//TODO: Implement error handling. Currently app crashes if backend can't be reached
 export const getSandwiches = async () => {
-  const response = await axios.get(`${BASE_URL}/sandwich`);
-  return response.data;
+  const response = await fetch(`${BASE_URL}/sandwich`,{
+    method: 'GET',
+  });
+  const data = await response.json();
+  return data;
 };
-
-// all the other functions also come here as their separate exports
