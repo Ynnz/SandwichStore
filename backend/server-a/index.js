@@ -8,6 +8,7 @@ var Item = schemas.Item;
 var Order = schemas.Order;
 var Topping = schemas.Topping;
 var Sandwich = schemas.Sandwich;
+var cors = require('cors');
 
 var oas3Tools = require('oas3-tools');
 //TODO: Fetch serverPort from environment variables
@@ -25,6 +26,8 @@ var options = {
 };
 var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
 var app = expressAppConfig.getApp();
+
+app.use(cors());
 
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, function () {
