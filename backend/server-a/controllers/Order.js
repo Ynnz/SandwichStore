@@ -32,3 +32,13 @@ module.exports.getOrders = function getOrders (req, res, next) {
       utils.writeJson(res, response);
     });
 };
+
+module.exports.orderOPTIONS = function orderOPTIONS(req, res, next) {
+  Order.orderOPTIONS()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};

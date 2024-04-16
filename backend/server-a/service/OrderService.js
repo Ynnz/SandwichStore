@@ -69,3 +69,14 @@ exports.getOrders = function() {
   });
 }
 
+
+/**
+ * CORS preflight for /order
+ *
+ * no response value expected for this operation
+ **/
+exports.orderOPTIONS = function() {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}

@@ -41,6 +41,7 @@ var writeJson = (exports.writeJson = function (response, arg1, arg2) {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods':
       'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE',
+    'Access-Control-Allow-Headers': 'Content-Type',
   });
   response.end(payload);
 });
