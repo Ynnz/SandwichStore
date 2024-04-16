@@ -4,9 +4,11 @@ import CartPage from './components/CartPage';
 import OrdersPage from './components/OrdersPage';
 import SandwichCard from './components/SandwichCard';
 import './App.css';
+import OrderForm from './OrderForm'; 
 import { getSandwiches } from './config/api';
 
 const App = () => {
+/*  
    const [sandwiches, setSandwiches] = useState([]);
    //Fetches the sandwiches when the app starts
    useEffect(() => {
@@ -15,9 +17,11 @@ const App = () => {
        setSandwiches(fetchedSandwiches);
      };
 
-     fetchSandwiches();
+    fetchSandwiches();
    }, []);
+*/
 
+{/* 
   return (
     <Router>
       <div className="App">
@@ -25,7 +29,7 @@ const App = () => {
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             <h1>Sandwich Eats</h1>
           </Link>      
-          {/*<h1>Sandwich Eats</h1>*/}
+          
           <nav>
             <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }} className="header-button">Cart</Link>
             <Link to="/orders" style={{ textDecoration: 'none', color: 'inherit' }} className="header-button">Orders</Link>
@@ -45,6 +49,15 @@ const App = () => {
       </div>
     </Router>
   );
+*/}  
+
+return (
+  <div>
+    <h1>Welcome to Sandwich Order System</h1>
+    <OrderForm />
+  </div>
+);
+
 }
 
 export default App;
