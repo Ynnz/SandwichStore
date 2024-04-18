@@ -53,9 +53,9 @@ export const getOrders = async () => {
 export const getOrderById = async (orderId) => {
   const response = await fetch(`${BASE_URL}/order/${orderId}`, {
     method: 'GET',
-    headers: {
+    /*headers: {
       'Content-Type': 'application/json'
-    }
+    }*/
   });
   const data = await response.json();
   return data;
@@ -65,9 +65,9 @@ export const getOrderById = async (orderId) => {
 export const getSandwichById = async (sandwichId) => {
   const response = await fetch(`${BASE_URL}/sandwich/${sandwichId}`, {
     method: 'GET',
-    /*headers: {
+    headers: {
       'Content-Type': 'application/json'
-    }*/
+    }
   });
   const data = await response.json();
   return data;
