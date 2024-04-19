@@ -54,6 +54,33 @@ paths:
         "400":
           description: Order not created
       x-swagger-router-controller: Order
+    options:
+      tags:
+      - order
+      summary: CORS preflight for /order
+      operationId: orderOPTIONS
+      responses:
+        "200":
+          description: Successful operation
+          headers:
+            Access-Control-Allow-Origin:
+              style: simple
+              explode: false
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: "GET, POST, OPTIONS"
+            Access-Control-Allow-Headers:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: Content-Type
+      x-swagger-router-controller: Order
   /order/{orderId}:
     get:
       tags:
