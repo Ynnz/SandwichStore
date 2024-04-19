@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getOrderById, getSandwichById } from './config/api';  // 确保路径正确
+import { getOrderById, getSandwichById } from './config/api'; 
 
 function OrderStatus() {
   const [orderId, setOrderId] = useState('');
@@ -10,7 +10,7 @@ function OrderStatus() {
     try {
       const result = await getOrderById(orderId);
       setOrderDetails(result);
-      // 获取所有三明治的详细信息
+      
       const sandwichesInfo = await Promise.all(
         result.sandwiches.map(sandwich => getSandwichById(sandwich.id))
       );

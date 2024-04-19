@@ -7,6 +7,7 @@ function Navbar() {
       <ul>
         <li><Link to="/order-form">Place Order</Link></li>
         <li><Link to="/order-status">Check Order Status</Link></li>
+        <li><Link to="/history-orders">History Orders</Link></li> 
       </ul>
     </nav>
   );

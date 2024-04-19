@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { addOrder, getSandwiches } from './config/api';  // Adjust path as necessary
+import { addOrder, getSandwiches } from './config/api'; 
 
 function OrderForm() {
-  //const [order, setOrder] = useState({ sandwiches: [{ id: '', quantity: 1 }], status: 'ordered' });
   const [order, setOrder] = useState({ sandwiches: [{}], status: 'ordered'});
   const [sandwiches, setSandwiches] = useState([]);
 
@@ -10,14 +9,7 @@ function OrderForm() {
     const fetchSandwichesAndInitializeOrder = async () => {
         try {
             const fetchedSandwiches = await getSandwiches();
-            setSandwiches(fetchedSandwiches);
-            
-/*            const initialSandwichesOrder = fetchedSandwiches.map(sandwich => ({
-                id: sandwich.id,
-                quantity: 0 // Initialize all quantities to 1
-            }));
-            setOrder({...order, sandwiches: initialSandwichesOrder });
-*/            
+            setSandwiches(fetchedSandwiches);         
         } catch (error) {
             console.error('Error fetching sandwiches:', error);
         }
