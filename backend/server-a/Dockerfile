@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 3001
 RUN chown -R node /usr/src/app
 USER node
-CMD sh -c 'npm run reset-db && npm start'
+CMD sh -c 'npm run init-db && npm start'

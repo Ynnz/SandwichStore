@@ -31,16 +31,3 @@ http.createServer(app).listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 });
-
-console.log('Get all sandwiches...');
-// Fetch all Sandwiches and print them out
-async function printAllSandwiches() {
-    try {
-        const sandwiches = await Sandwich.find();
-        console.log('All Sandwiches:', sandwiches);
-    } catch (error) {
-        console.error('Error fetching sandwiches:', error);
-    }
-}
-
-printAllSandwiches();

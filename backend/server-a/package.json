@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "nodemon index.js",
-    "reset-db": "node mongo/reset/reset-db.js"
+    "init-db": "node mongo/reset/init-db.js"
   },
   "keywords": [
     "swagger"
