@@ -7,3 +7,14 @@
 # following the instructions.
 
 #FROM node:version...
+
+FROM node:lts-alpine
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "utils/wait-for-it.sh", "./"]
+RUN npm install --production --silent
+COPY . .
+EXPOSE 3002
+RUN chown -R node /usr/src/app
+USER node
+CMD sh -c 'npm start'
