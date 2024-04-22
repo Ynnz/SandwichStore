@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { addOrder, getSandwiches } from './config/api'; 
 
 function OrderForm() {
-  const [order, setOrder] = useState({ sandwiches: [{}], status: 'ordered'});
+  //Used to store the current order in JSON format
+  const [sandwichOrdersJSON, setsandwichOrdersJSON] = useState([]);
+  //Used to store all the sanwiches fetched from the backend
   const [sandwiches, setSandwiches] = useState([]);
 
+  //Fetches the sandwiches from the backend only when the page loads
   useEffect(() => {
     const fetchSandwichesAndInitializeOrder = async () => {
         try {
@@ -18,12 +21,28 @@ function OrderForm() {
     fetchSandwichesAndInitializeOrder();
 }, []);
 
-
-
+  //Called when the user clicks the "Place order" button
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await addOrder(order);
+      //TODO: Test thay the implementation works
+      //Removes the name from the stored JSON order
+      var updatedSandwiches;
+      for (var i = 0; i < sandwichOrdersJSON.length; i++) {
+        updatedSandwiches.push({
+          quantity: sandwichOrdersJSON[i].quantity,
+          id: sandwichOrdersJSON[i].id,
+        });
+      }
+
+      //TODO: Test that the implementation works
+      //Constructs the order object
+      var orderObject = {
+        sandwiches: updatedSandwiches,
+        status: 'ordered',
+      };
+      //Send the order to the backend. orderObject = body of the request
+      const result = await addOrder(orderObject);
       alert('Order placed! Order ID: ' + result._id);
     } catch (error) {
       console.error('Failed to place order:', error);
@@ -31,31 +50,54 @@ function OrderForm() {
     }
   };
 
+  //Called when the user clicks the "Add to cart" button in the sandwich list
+  const addToCart = async (id, quantity, name) => {
+    console.log('Adding to cart:', id, quantity, name);
+    //TODO: Check if the sandwich is already in the cart
+    //TODO: if it is, update the quantity
+    //if it is not, add it to the cart with correct quantity
+    setsandwichOrdersJSON([...sandwichOrdersJSON, { id, quantity, name }]);
+  }
+
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+      <div>
+        {sandwiches.map((sandwich) => (
+          <div
+            key={sandwich._id}
+            style={{
+              margin: '10px',
+              padding: '10px',
+              border: '1px solid gray',
+            }}
+          >
+            <h2>{sandwich.name}</h2>
+            {/** TODO: The ID should not be visible for the user. But it's still stored somehow in here*/}
+            <p>Bread Type: {sandwich.breadType}</p>
+            <input type="number"></input>
+            <button
+              type="submit"
+              onClick={() => addToCart(sandwich._id, 2, sandwich.name)}
+            >
+              Add to cart
+            </button>
+          </div>
+        ))}
+      </div>
 
       <div>
-          {sandwiches.map((sandwich) => (
-            <div key={sandwich.id} style={{ margin: '10px', padding: '10px', border: '1px solid gray' }}>
-              <h2>{sandwich.name}</h2>
-              <h3>ID: {sandwich._id}</h3>
-              <p>Bread Type: {sandwich.breadType}</p>
-            </div>              
-          ))}
-      </div>    
-
-      <label>
-        Sandwich ID:
-        <input type="text" value={order.sandwiches[0].id} min="0" onChange={(e) => setOrder({...order, sandwiches: [{...order.sandwiches[0], id: e.target.value}]})} />
-      </label>
-      <label>
-        Quantity:
-        <input type="number" value={order.sandwiches[0].quantity} min="0" onChange={(e) => setOrder({...order, sandwiches: [{...order.sandwiches[0], quantity: Number(e.target.value)}]})} />
-      </label>
-      
-      <button type="submit">Submit</button>
-    </form>
+        <h2>Cart</h2>
+        <div>
+          {/** Here will be listed the current order details
+           * It can be constructed from the sandwichOrdersJSON object
+           */}
+        </div>
+        <button type="submit" onSubmit={handleSubmit}>
+          Place order
+        </button>
+      </div>
+    </div>
   );
 }
 
