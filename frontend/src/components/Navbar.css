@@ -1,0 +1,33 @@
+/* Navigation.css */
+nav {
+    background-color: #f8f9fa; /* 浅灰色背景 */
+    padding: 10px 20px; /* 内边距 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 下方轻微阴影 */
+}
+
+nav ul {
+    list-style: none; /* 移除列表项目符号 */
+    padding: 0; /* 移除默认内边距 */
+    margin: 0; /* 移除默认外边距 */
+    display: flex; /* 使用flex布局使列表水平排列 */
+    justify-content: center; /* 居中对齐列表项 */
+}
+
+nav ul li {
+    margin: 0 15px; /* 列表项间距 */
+}
+
+nav ul li a {
+    text-decoration: none; /* 去除下划线 */
+    color: #007bff; /* 链接颜色为亮蓝色 */
+    font-size: 16px; /* 字体大小 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+nav ul li a:hover {
+    color: #0056b3; /* 鼠标悬停时的颜色更深 */
+}
+
+.active-link {
+    color: #004085; /* 激活链接颜色加深 */
+}

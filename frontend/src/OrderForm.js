@@ -105,14 +105,14 @@ function OrderForm() {
       // If sandwich in not in the cart，add a new item
       setsandwichOrdersJSON([...sandwichOrdersJSON, { id, quantity, name }]);
     }
-    
+    //alert('Add to cart : ' + name + ' *' + quantity);
   }
 
 
 
   return (
-    <div>
-      <div>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden'  }}>
+      <div style={{ flex: 1, overflowY: 'auto',  marginRight: '550px'  }}>
         {sandwiches.map((sandwich) => (
           <div
             key={sandwich._id}
@@ -138,19 +138,59 @@ function OrderForm() {
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h2>Cart</h2>
+
+      <div style={{
+        width: '400px',
+        position: 'fixed',
+        right: '50px',
+        top: '70px',
+        height: '80vh',
+        overflowY: 'auto',
+        backgroundColor: '#FFB6C1',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)', // 添加阴影效果
+        borderRadius: '10px', // 圆角边框
+        padding: '20px' // 增加内边距
+      }}>
+        <form onSubmit={handleSubmit}>
           <div>
-            {/** Here will be listed the current order details
-             * It can be constructed from the sandwichOrdersJSON object
-             */}
-          </div>
-          <button type="submit" onClick={handleSubmit}>
-            Place order
-          </button>
-        </div>            
-      </form>      
+            <h2 style={{
+              textAlign: 'center', // 标题居中
+              marginBottom: '20px', // 增加标题下方的间距
+              color: '#333', // 深色字体增强可读性
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' // 更改字体样式
+            }}> Shopping Cart</h2>
+            <div>
+              {/** 动态列表项目 */}
+              {sandwichOrdersJSON.map(order => (
+                <div key={order.id} style={{
+                  padding: '10px',
+                  borderBottom: '1px solid #ccc',
+                  marginBottom: '10px', // 项目间增加间距
+                  borderRadius: '5px', // 轻微圆角
+                  backgroundColor: 'white', // 每个项目用白色背景突出
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)' // 为每个项目添加轻微阴影
+                }}>
+                  <p style={{ fontWeight: 'bold', color: '#333' }}>{order.name} - Quantity: {order.quantity}</p>
+                </div>
+              ))}
+            </div>
+            <button type="submit" onClick={handleSubmit} style={{
+              width: '100%', // 按钮宽度与容器一致
+              padding: '10px 0', // 增加按钮的垂直内边距
+              backgroundColor: '#FF69B4', // 按钮颜色
+              color: 'white', // 按钮文字颜色
+              border: 'none', // 移除边框
+              borderRadius: '5px', // 圆角按钮
+              cursor: 'pointer', // 鼠标悬停时指针变化
+              fontSize: '16px', // 增大字体大小
+              fontWeight: 'bold' // 字体加粗
+            }}>
+              Place order
+            </button>
+          </div>            
+        </form>   
+      </div>
+ 
     </div>
   );
 }
