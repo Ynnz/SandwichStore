@@ -78,7 +78,7 @@ function OrderForm() {
 
   //Called when the user clicks the "Add to cart" button in the sandwich list
   const addToCart = async (id, quantity, name) => {
-    console.log('Adding to cart:', id, quantity, name);
+    //console.log('Adding to cart:', id, quantity, name);
     //TODO: Check if the sandwich is already in the cart
     //TODO: if it is, update the quantity
     //if it is not, add it to the cart with correct quantity
@@ -112,29 +112,58 @@ function OrderForm() {
 
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden'  }}>
-      <div style={{ flex: 1, overflowY: 'auto',  marginRight: '550px'  }}>
+      <div style={{
+        flex: 1,
+        overflowY: 'auto',
+        marginRight: '550px',
+        padding: '20px' // 增加内边距使内容不紧贴边缘
+      }}>
         {sandwiches.map((sandwich) => (
           <div
             key={sandwich._id}
             style={{
               margin: '10px',
-              padding: '10px',
-              border: '1px solid gray',
+              padding: '20px',
+              backgroundColor: '#ffffff', // 背景色为纯白
+              boxShadow: '0 2px 10px rgba(0,0,0,0.1)', // 添加阴影效果增加立体感
+              borderRadius: '8px', // 添加圆角
+              display: 'flex',
+              flexDirection: 'column', // 竖直堆叠元素
+              alignItems: 'start', // 对齐到起始边
             }}
           >
-            <h2>{sandwich.name}</h2>
-            <p>Bread Type: {sandwich.breadType}</p>
+            <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>{sandwich.name}</h2>
+            <p style={{ margin: '0 0 20px 0', fontSize: '16px', color: '#666' }}>
+              Bread Type: {sandwich.breadType}
+            </p>
             <CounterInput
               value={quantities[sandwich._id]}
               onIncrement={() => handleIncrement(sandwich._id)}
               onDecrement={() => handleDecrement(sandwich._id)}
-            />         
+            />
             <button
               type="button"
-              onClick={() => addToCart(sandwich._id, quantities[sandwich._id], sandwich.name)}
+              onClick={() => {
+                // 只有当数量大于0时，才执行addToCart
+                if (quantities[sandwich._id] > 0) {
+                  addToCart(sandwich._id, quantities[sandwich._id], sandwich.name);
+                }
+              }}
+              style={{
+                marginTop: '10px',
+                backgroundColor: '#007bff', // 蓝色按钮
+                color: 'white', // 文字颜色
+                border: 'none',
+                borderRadius: '5px',
+                padding: '10px 15px',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s', // 过渡动画
+              }}
+              onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'} // 鼠标悬浮时变深
+              onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'} // 鼠标移开时恢复
             >
               Add to cart
-            </button>  
+            </button>
           </div>
         ))}
       </div>
