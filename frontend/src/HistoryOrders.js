@@ -7,10 +7,9 @@ function HistoryOrders() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const [openOrderId, setOpenOrderId] = useState(null); // 追踪当前打开的订单ID
+    const [openOrderId, setOpenOrderId] = useState(null); 
 
     const handleToggle = (orderId) => {
-        // 点击时，切换当前打开的订单ID
         setOpenOrderId(prevOpenOrderId => prevOpenOrderId === orderId ? null : orderId);
     };
 

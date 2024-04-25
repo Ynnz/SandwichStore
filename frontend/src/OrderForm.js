@@ -18,7 +18,7 @@ function OrderForm() {
         try {
             const fetchedSandwiches = await getSandwiches();
             setSandwiches(fetchedSandwiches);   
-            // 初始化计数器
+            // Initialize counter
             const initialQuantities = {};
             fetchedSandwiches.forEach(sandwich => {
               initialQuantities[sandwich._id] = 0;
@@ -124,7 +124,7 @@ function OrderForm() {
         flex: 1,
         overflowY: 'auto',
         marginRight: '550px',
-        padding: '20px' // 增加内边距使内容不紧贴边缘
+        padding: '20px' 
       }}>
         {sandwiches.map((sandwich) => (
           <div
@@ -132,12 +132,12 @@ function OrderForm() {
             style={{
               margin: '10px',
               padding: '20px',
-              backgroundColor: '#ffffff', // 背景色为纯白
-              boxShadow: '0 2px 10px rgba(0,0,0,0.1)', // 添加阴影效果增加立体感
-              borderRadius: '8px', // 添加圆角
+              backgroundColor: '#ffffff', 
+              boxShadow: '0 2px 10px rgba(0,0,0,0.1)', 
+              borderRadius: '8px', 
               display: 'flex',
-              flexDirection: 'column', // 竖直堆叠元素
-              alignItems: 'start', // 对齐到起始边
+              flexDirection: 'column', 
+              alignItems: 'start', 
             }}
           >
             <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>{sandwich.name}</h2>
@@ -152,23 +152,22 @@ function OrderForm() {
             <button
               type="button"
               onClick={() => {
-                // 只有当数量大于0时，才执行addToCart
                 if (quantities[sandwich._id] > 0) {
                   addToCart(sandwich._id, quantities[sandwich._id], sandwich.name);
                 }
               }}
               style={{
                 marginTop: '10px',
-                backgroundColor: '#007bff', // 蓝色按钮
-                color: 'white', // 文字颜色
+                backgroundColor: '#007bff', 
+                color: 'white', 
                 border: 'none',
                 borderRadius: '5px',
                 padding: '10px 15px',
                 cursor: 'pointer',
-                transition: 'background-color 0.3s', // 过渡动画
+                transition: 'background-color 0.3s', 
               }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'} // 鼠标悬浮时变深
-              onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'} // 鼠标移开时恢复
+              onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
+              onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'} 
             >
               Add to cart
             </button>
@@ -184,43 +183,42 @@ function OrderForm() {
         height: '80vh',
         overflowY: 'auto',
         backgroundColor: '#FFB6C1',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)', // 添加阴影效果
-        borderRadius: '10px', // 圆角边框
-        padding: '20px' // 增加内边距
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)', 
+        borderRadius: '10px', 
+        padding: '20px' 
       }}>
         <form onSubmit={handleSubmit}>
           <div>
             <h2 style={{
-              textAlign: 'center', // 标题居中
-              marginBottom: '20px', // 增加标题下方的间距
-              color: '#333', // 深色字体增强可读性
-              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' // 更改字体样式
+              textAlign: 'center', 
+              marginBottom: '20px', 
+              color: '#333', 
+              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' 
             }}> Shopping Cart</h2>
             <div>
-              {/** 动态列表项目 */}
               {sandwichOrdersJSON.map(order => (
                 <div key={order.id} style={{
                   padding: '10px',
                   borderBottom: '1px solid #ccc',
-                  marginBottom: '10px', // 项目间增加间距
-                  borderRadius: '5px', // 轻微圆角
-                  backgroundColor: 'white', // 每个项目用白色背景突出
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)' // 为每个项目添加轻微阴影
+                  marginBottom: '10px', 
+                  borderRadius: '5px', 
+                  backgroundColor: 'white', 
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)' 
                 }}>
                   <p style={{ fontWeight: 'bold', color: '#333' }}>{order.name} - Quantity: {order.quantity}</p>
                 </div>
               ))}
             </div>
             <button type="submit" onClick={handleSubmit} style={{
-              width: '100%', // 按钮宽度与容器一致
-              padding: '10px 0', // 增加按钮的垂直内边距
-              backgroundColor: '#FF69B4', // 按钮颜色
-              color: 'white', // 按钮文字颜色
-              border: 'none', // 移除边框
-              borderRadius: '5px', // 圆角按钮
-              cursor: 'pointer', // 鼠标悬停时指针变化
-              fontSize: '16px', // 增大字体大小
-              fontWeight: 'bold' // 字体加粗
+              width: '100%', 
+              padding: '10px 0', 
+              backgroundColor: '#FF69B4', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '5px', 
+              cursor: 'pointer',
+              fontSize: '16px', 
+              fontWeight: 'bold' 
             }}>
               Place order
             </button>

@@ -14,20 +14,20 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 15px; /* 列表项间距 */
+    margin: 0 15px;
 }
 
 nav ul li a {
-    text-decoration: none; /* 去除下划线 */
-    color: #007bff; /* 链接颜色为亮蓝色 */
-    font-size: 16px; /* 字体大小 */
-    font-weight: bold; /* 加粗字体 */
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 nav ul li a:hover {
-    color: #0056b3; /* 鼠标悬停时的颜色更深 */
+    color: #0056b3;
 }
 
 .active-link {
-    color: #004085; /* 激活链接颜色加深 */
+    color: #004085;
 }
