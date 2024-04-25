@@ -209,19 +209,21 @@ function OrderForm() {
                 </div>
               ))}
             </div>
-            <button type="submit" onClick={handleSubmit} style={{
-              width: '100%', 
-              padding: '10px 0', 
-              backgroundColor: '#FF69B4', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer',
-              fontSize: '16px', 
-              fontWeight: 'bold' 
-            }}>
-              Place order
-            </button>
+            { sandwichOrdersJSON.length > 0 && (
+              <button type="submit" onClick={handleSubmit} style={{
+                width: '100%', 
+                padding: '10px 0', 
+                backgroundColor: '#FF69B4', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '5px', 
+                cursor: 'pointer',
+                fontSize: '16px', 
+                fontWeight: 'bold' 
+              }}>
+                Place order
+              </button>
+            )}
           </div>            
         </form>   
       </div>
