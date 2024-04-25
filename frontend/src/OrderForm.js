@@ -60,7 +60,6 @@ function OrderForm() {
           id: sandwichOrdersJSON[i].id,
         });
       }
-
       //TODO: Test that the implementation works
       //Constructs the order object
       var orderObject = {
@@ -69,7 +68,16 @@ function OrderForm() {
       };
       //Send the order to the backend. orderObject = body of the request
       const result = await addOrder(orderObject);
+      //Clear array for next order
+      setsandwichOrdersJSON([]);
+      // reset counter
+      const resetQuantities = {};
+      sandwiches.forEach(sandwich => {
+        resetQuantities[sandwich._id] = 0;
+      });
+      setQuantities(resetQuantities);
       alert('Order placed! Order ID: ' + result._id);
+
     } catch (error) {
       console.error('Failed to place order:', error);
       alert('Failed to place order.');
