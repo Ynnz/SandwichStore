@@ -9,7 +9,7 @@ module.exports.addOrder = function addOrder (req, res, next, body) {
   Order.addOrder(body)
   .then(function (response) {
     utils.writeJson(res, response);
-    sendTask.addTask('rapid-runner-rabbit', 'received-orders', body);
+    sendTask.addTask('rapid-runner-rabbit', 'received-orders', response);
   })
   .catch(function (response) {
     utils.writeJson(res, response);

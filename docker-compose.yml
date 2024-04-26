@@ -97,6 +97,8 @@ services:
       - backend
     depends_on:
       - mongodb
+      - rapid-runner-rabbit
+    command: ["sh", "-c", "./utils/wait-for-it.sh rapid-runner-rabbit:5672 && npm run init-db && npm start"]
 
   mongodb:
     image: mongo:latest

@@ -37,8 +37,16 @@ http.createServer(app).listen(serverPort, function () {
         console.error(err);
         return;
       }
-      receivedObject = JSON.parse(msg.content.toString());
-      console.log('receivedObject ', receivedObject);
+      var receivedObject = JSON.parse(msg.content.toString());
+      const orderId = receivedObject._id;
+      const newStatus = receivedObject.status;
+      Order.findOneAndUpdate({_id: orderId}, {status: newStatus}, {new: true})
+        .then(doc => {
+          console.log("Order status updated to MongoDB");
+        })
+        .catch(err => {
+          console.error(err);
+      });
     });
 });
 

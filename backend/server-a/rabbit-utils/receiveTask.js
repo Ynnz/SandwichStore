@@ -18,16 +18,10 @@ module.exports.getTask = function(rabbitHost, queueName, callback){
       return ok;
 
       function doWork(msg) {
-        var body = order.content.toString();
+        var body = msg.content.toString();
         console.log(" [x] Received '%s'", body);
         callback(null, msg);
         ch.ack(msg);
-        /*var secs = body.split('.').length - 1;
-        //console.log(" [x] Task takes %d seconds", secs);
-        setTimeout(function() {
-          console.log(" [x] Done");
-          ch.ack(msg);
-        }, secs * 1000);*/
       }
     });
   }).catch(console.warn);
