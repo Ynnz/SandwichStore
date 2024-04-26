@@ -7,7 +7,7 @@
 var amqp = require('amqplib');
 
 
-module.exports.getTask = function(rabbitHost, queueName){
+module.exports.getTask = function(rabbitHost, queueName, callback){
   amqp.connect('amqp://' + rabbitHost).then(function(conn) {
     process.once('SIGINT', function() { conn.close(); });
     return conn.createChannel().then(function(ch) {
@@ -26,6 +26,7 @@ module.exports.getTask = function(rabbitHost, queueName){
         //console.log(" [x] Task takes %d seconds", secs);
         setTimeout(function() {
           console.log(new Date(), " [x] Done");
+          callback(null, msg);
           ch.ack(msg);
         }, 10000);
       }

@@ -132,6 +132,7 @@ services:
       - 3002
     networks:
       - backend
+    command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--", "npm", "start"]
 
 networks:
   backend:
