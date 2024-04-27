@@ -40,35 +40,38 @@ function HistoryOrders() {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div className="history-orders">
-            <h1>History Orders</h1>
-            {orders.length > 0 ? (
-                orders.map((order) => (
-                    <div key={order._id}>
-                        <div
-                            className="order-item"
-                            onClick={() => handleToggle(order._id)}
-                        >
-                            <h2>Order ID: {order._id}</h2>
-                        </div>
-                        {openOrderId === order._id && (
-                            <div className="order-details">
-                                <p>Status: {order.status}</p>
-                                <ul>
-                                    {order.sandwiches.map((sandwich) => (
-                                        <li key={sandwich.id}>
-                                            {sandwich.name} * {sandwich.quantity}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                ))
-            ) : (
-                <p>No history orders found.</p>
-            )}
-        </div>
+      <div className="history-orders">
+        <h1>History Orders</h1>
+        {orders.length > 0 ? (
+          [...orders].reverse().map((order) => (
+            <div key={order._id}>
+              <div
+                className="order-item"
+                onClick={() => handleToggle(order._id)}
+              >
+                <h2>
+                  Order {order._id} ({order.sandwiches.reduce((acc, sandwich) => acc + sandwich.quantity, 0)} items)
+                </h2>
+              </div>
+              {openOrderId === order._id && (
+                <div className="order-details">
+                  <p>Status: {order.status}</p>
+                  <p class="order-contains">Order contains:</p>
+                  <ul>
+                    {order.sandwiches.map((sandwich) => (
+                      <li key={sandwich.id}>
+                        {sandwich.name} ({sandwich.quantity} pcs)
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>No history orders found.</p>
+        )}
+      </div>
     );
 }
 
