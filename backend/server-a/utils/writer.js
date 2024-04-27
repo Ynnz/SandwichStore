@@ -38,9 +38,9 @@ var writeJson = (exports.writeJson = function (response, arg1, arg2) {
   }
   response.writeHead(code, {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'http://localhost:3000/',
     'Access-Control-Allow-Methods':
-      'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE',
+      'GET,OPTIONS,POST',
     'Access-Control-Allow-Headers': 'Content-Type',
   });
   response.end(payload);
