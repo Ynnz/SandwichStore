@@ -1,91 +1,35 @@
-# This is the docker-compose-yml file that must be able to start
-# your group's backend.
-
-# Remember to comment this file well!
-
-# After you have Docker and Docker Compose installed,
-# and this file is ready, you use this file and run it with:
-# `docker-compose up --build`
-
-#version: "3"
-
-#services:
-  # An example configuration of server A for groups' convenience.
-  # server-a is based on the Docker image the groups produce and build themselves.
-#  server-a:
-    # Change the image information to match your server A image
-#    image: # $USERNAME/$IMAGENAME:$TAG, something like group000/node-swagger:3a
-    # 'depends_on' and 'command' are  to be used when used
-    # with RabbitMQ service in this file. 'depends_on' must be set
-    # to RabbitMQ service's name from this file, and 'command'
-    # can be modified to be anything, but what is given should
-    # work. Just uncomment them
-    # depends_on:
-    #   -  rapid-runner-rabbit
-    # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
-#    build:
-#      dockerfile: Dockerfile
-#      context:  ./backend/server-a
-#    ports:
-#      - "12345:8080"
-#    networks:
-#      - backend
-
-  # You can base this service on a rabbitmq Docker Hub image.
-  # You need to expose the RabbitMQ port to other containers
-  # in this  docker-compose.yml
-  # A set of needed Docker instructions like 'image:' are shown
-  # below, groups should set their values. Groups are free to
-  # CRUD the set of instructions as they see fit.
-  # rapid-runner-rabbit:
-  #   image:
-  #   ports:
-  #   expose:
-  #   networks:
-
-  # much of the server-b service entry can be copied from server-a
-  # service above. server-b directory Dockerfile has more
-  # information.
-  # A set of needed Docker instructions like 'image:' are shown
-  # below, groups should set their values. Groups are free to
-  # CRUD this set of instructions as they see fit.
-  # server-b:
-      # image:
-      # depends_on:
-      # command: ["./utils/wait-for-it.sh", "rapid-runner-rabbit:5672", "--",  "npm", "start"]
-      # build:
-      #   dockerfile:
-      #   context:
-      # expose:
-      # networks:
-
-  # Your group might want to use a database to store some data
-  # You can use any database you wish, PostgreSQL, MySQL and
-  # MongoDB have rather good Docker documentation and examples.
-  # But some groups could find a way to do this without
-  # databases
-  # database-service would go here.
-  #database:
-
-# Here we create a named network, that all the backend components
-# must be added to for them to be able to communicate through
-# exposed ports.
-#networks:
-#  backend:
-
-# If you use databases for storing information, you can define
-# their volumes here.
-# Documentation: https://docs.docker.com/storage/volumes/
-# Personally I like to look at the database's image's Dockerfile
-# in the Docker Hub to see what directory it uses to store data.
-# volumes:
-
+# 
+# This Docker Compose file is used to define and configure the backend for the application.
+# It consists of four services: server-a, mongodb, rapid-runner-rabbit and server-b.
+# 
+# server-a is built using Dockerfile located in the 'backend/server-a' directory.
+# Uses port 3001 of which the frontend will connect to.
+# Is dependent on the mongodb and rapid-runner-rabbit services and it has to wait till rapid-runner-rabbit is available before starting.
+# 
+# The 'mongodb' service uses the latest 'mongo' image.
+# Only server-a uses MongoDB to maintain service isolation.
+# Maps port 27017 on the host to port 27017 in the container for management purposes.
+# Creates a volume named 'mongodb_data' to persist the database data.
+# 
+# The 'rapid-runner-rabbit' service uses the 'rabbitmq:3-management-alpine' image.
+# Exposes ports 5672 and 15672.
+# Both server-a and server-b uses this service as a message broker.
+# Performs a health check to ensure the service is running.
+# 
+# server-b is built using the Dockerfile located in the 'backend/server-b' directory.
+# Uses port 3002.
+# Is dependent on the rapid-runner-rabbit service and it has to wait till it's available before starting.
+# 
+# The 'backend' network is created as a bridge network to connect the services.
+# 
+# The 'mongodb_data' volume is used to persist the MongoDB data.
+# 
 
 version: '3.4'
 
 services:
   server-a:
-    image: ${GROUP_NAME}/${DOCKER_IMAGE_NAME}:${VERSION} #These are fetched from .env file located at the root of the project
+    image: ${GROUP_NAME}/${DOCKER_IMAGE_NAME}:${VERSION}
     build:
       context: backend/server-a
       dockerfile: ./Dockerfile
@@ -103,7 +47,7 @@ services:
   mongodb:
     image: mongo:latest
     ports:
-      - '27017:27017'
+    - '27017:27017'
     volumes:
       - mongodb_data:/data/db
     networks:
@@ -142,4 +86,3 @@ networks:
 
 volumes:
   mongodb_data:
-    
