@@ -51,7 +51,6 @@ function OrderForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      //TODO: Test thay the implementation works
       //Removes the name from the stored JSON order
       var updatedSandwiches = [];
       for (var i = 0; i < sandwichOrdersJSON.length; i++) {
@@ -60,7 +59,6 @@ function OrderForm() {
           id: sandwichOrdersJSON[i].id,
         });
       }
-      //TODO: Test that the implementation works
       //Constructs the order object
       var orderObject = {
         sandwiches: updatedSandwiches,
@@ -86,13 +84,6 @@ function OrderForm() {
 
   //Called when the user clicks the "Add to cart" button in the sandwich list
   const addToCart = async (id, quantity, name) => {
-    //console.log('Adding to cart:', id, quantity, name);
-    //TODO: Check if the sandwich is already in the cart
-    //TODO: if it is, update the quantity
-    //if it is not, add it to the cart with correct quantity
-    
-    //setsandwichOrdersJSON([...sandwichOrdersJSON, { id, quantity, name }]);
-    
     // Check if there's the same sandwich in the cart
     const existingSandwichIndex = sandwichOrdersJSON.findIndex(sandwich => sandwich.id === id);
 
@@ -113,7 +104,6 @@ function OrderForm() {
       // If sandwich in not in the cart，add a new item
       setsandwichOrdersJSON([...sandwichOrdersJSON, { id, quantity, name }]);
     }
-    //alert('Add to cart : ' + name + ' *' + quantity);
   }
 
 
