@@ -4,10 +4,7 @@ var path = require('path');
 var http = require('http');
 var mongoose = require('mongoose');
 var schemas = require('./mongo/schemas');
-var Item = schemas.Item;
 var Order = schemas.Order;
-var Topping = schemas.Topping;
-var Sandwich = schemas.Sandwich;
 const receiveTask = require('./rabbit-utils/receiveTask.js');
 
 var oas3Tools = require('oas3-tools');
