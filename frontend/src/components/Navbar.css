@@ -1,16 +1,16 @@
 /* Navigation.css */
 nav {
-    background-color: #f8f9fa; /* 浅灰色背景 */
-    padding: 10px 20px; /* 内边距 */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 下方轻微阴影 */
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 nav ul {
-    list-style: none; /* 移除列表项目符号 */
-    padding: 0; /* 移除默认内边距 */
-    margin: 0; /* 移除默认外边距 */
-    display: flex; /* 使用flex布局使列表水平排列 */
-    justify-content: center; /* 居中对齐列表项 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
