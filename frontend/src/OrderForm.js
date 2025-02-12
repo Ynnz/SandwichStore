@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { addOrder, getSandwiches } from './config/api'; 
 import CounterInput from './components/CounterInput';
-
-
+import './OrderForm.css'; // Import the CSS file
 
 function OrderForm() {
-  //Used to store the current order in JSON format
+  // Used to store the current order in JSON format
   const [sandwichOrdersJSON, setsandwichOrdersJSON] = useState([]);
-  //Used to store all the sanwiches fetched from the backend
+  // Used to store all the sandwiches fetched from the backend
   const [sandwiches, setSandwiches] = useState([]);
   const [quantities, setQuantities] = useState({});
 
-  
-  //Fetches the sandwiches from the backend only when the page loads
+  // Fetch the sandwiches from the backend only when the page loads
   useEffect(() => {
     const fetchSandwiches = async () => {
-        try {
-            const fetchedSandwiches = await getSandwiches();
-            setSandwiches(fetchedSandwiches);   
-            // Initialize counter
-            const initialQuantities = {};
-            fetchedSandwiches.forEach(sandwich => {
-              initialQuantities[sandwich._id] = 0;
-            });
-            setQuantities(initialQuantities);
-        } catch (error) {
-            console.error('Error fetching sandwiches:', error);
-        }
+      try {
+        const fetchedSandwiches = await getSandwiches();
+        setSandwiches(fetchedSandwiches);
+        // Initialize counter for each sandwich
+        const initialQuantities = {};
+        fetchedSandwiches.forEach(sandwich => {
+          initialQuantities[sandwich._id] = 0;
+        });
+        setQuantities(initialQuantities);
+      } catch (error) {
+        console.error('Error fetching sandwiches:', error);
+      }
     };
 
     fetchSandwiches();
-}, []);
+  }, []);
 
   const handleIncrement = (id) => {
     setQuantities(prev => ({
@@ -46,94 +44,63 @@ function OrderForm() {
     }));
   };
 
-
-  //Called when the user clicks the "Place order" button
+  // Called when the user clicks the "Place order" button
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      //Removes the name from the stored JSON order
-      var updatedSandwiches = [];
-      for (var i = 0; i < sandwichOrdersJSON.length; i++) {
-        updatedSandwiches.push({
-          quantity: sandwichOrdersJSON[i].quantity,
-          id: sandwichOrdersJSON[i].id,
-        });
-      }
-      //Constructs the order object
-      var orderObject = {
+      // Remaps the current order without the name
+      const updatedSandwiches = sandwichOrdersJSON.map(item => ({
+        quantity: item.quantity,
+        id: item.id,
+      }));
+      // Constructs the order object
+      const orderObject = {
         sandwiches: updatedSandwiches,
         status: 'ordered',
       };
-      //Send the order to the backend. orderObject = body of the request
+      // Send the order to the backend
       const result = await addOrder(orderObject);
-      //Clear array for next order
+      // Clear array for next order
       setsandwichOrdersJSON([]);
-      // reset counter
+      // Reset counter values
       const resetQuantities = {};
       sandwiches.forEach(sandwich => {
         resetQuantities[sandwich._id] = 0;
       });
       setQuantities(resetQuantities);
       alert('Order placed! Order ID: ' + result._id);
-
     } catch (error) {
       console.error('Failed to place order:', error);
       alert('Failed to place order.');
     }
   };
 
-  //Called when the user clicks the "Add to cart" button in the sandwich list
-  const addToCart = async (id, quantity, name) => {
-    // Check if there's the same sandwich in the cart
+  // Called when the user clicks the "Add to cart" button in the sandwich list
+  const addToCart = (id, quantity, name) => {
     const existingSandwichIndex = sandwichOrdersJSON.findIndex(sandwich => sandwich.id === id);
 
-    // If the sandwich has already exists，update its number
     if (existingSandwichIndex !== -1) {
-      // Create a new Order array
+      // Update the quantity of the existing sandwich in the cart
       const newSandwichOrdersJSON = sandwichOrdersJSON.map((sandwich, index) => {
         if (index === existingSandwichIndex) {
-          // If the sandwich matches，return an updated new object
           return { ...sandwich, quantity: quantity };
         }
         return sandwich;
       });
-
-      // Set new status
       setsandwichOrdersJSON(newSandwichOrdersJSON);
     } else {
-      // If sandwich in not in the cart，add a new item
+      // Add a new item if the sandwich is not in the cart
       setsandwichOrdersJSON([...sandwichOrdersJSON, { id, quantity, name }]);
     }
-  }
-
-
+  };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden'  }}>
-      <div style={{
-        flex: 1,
-        overflowY: 'auto',
-        marginRight: '550px',
-        padding: '20px' 
-      }}>
+    <div className="order-form-container">
+      <div className="sandwich-list">
         {sandwiches.map((sandwich) => (
-          <div
-            key={sandwich._id}
-            style={{
-              margin: '10px',
-              padding: '20px',
-              backgroundColor: '#ffffff', 
-              boxShadow: '0 2px 10px rgba(0,0,0,0.1)', 
-              borderRadius: '8px', 
-              display: 'flex',
-              flexDirection: 'column', 
-              alignItems: 'start', 
-            }}
-          >
-            <h2 style={{ margin: '0 0 10px 0', color: '#333' }}>{sandwich.name}</h2>
-            <p style={{ margin: '0 0 20px 0', fontSize: '16px', color: '#666' }}>
-              Bread Type: {sandwich.breadType}
-            </p>
+          <div key={sandwich._id} className="sandwich-card">
+            <h2 className="sandwich-name">{sandwich.name}</h2>
+            <p className="sandwich-details">Bread Type: {sandwich.breadType}</p>
             <CounterInput
               value={quantities[sandwich._id]}
               onIncrement={() => handleIncrement(sandwich._id)}
@@ -141,23 +108,12 @@ function OrderForm() {
             />
             <button
               type="button"
+              className="add-to-cart-btn"
               onClick={() => {
                 if (quantities[sandwich._id] > 0) {
                   addToCart(sandwich._id, quantities[sandwich._id], sandwich.name);
                 }
               }}
-              style={{
-                marginTop: '10px',
-                backgroundColor: '#007bff', 
-                color: 'white', 
-                border: 'none',
-                borderRadius: '5px',
-                padding: '10px 15px',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s', 
-              }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'} 
             >
               Add to cart
             </button>
@@ -165,59 +121,27 @@ function OrderForm() {
         ))}
       </div>
 
-      <div style={{
-        width: '400px',
-        position: 'fixed',
-        right: '50px',
-        top: '70px',
-        height: '80vh',
-        overflowY: 'auto',
-        backgroundColor: '#FFB6C1',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)', 
-        borderRadius: '10px', 
-        padding: '20px' 
-      }}>
+      <div className="shopping-cart">
         <form onSubmit={handleSubmit}>
           <div>
-            <h2 style={{
-              textAlign: 'center', 
-              marginBottom: '20px', 
-              color: '#333', 
-              fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' 
-            }}> Shopping Cart</h2>
+            <h2 className="shopping-cart-title">Shopping Cart</h2>
             <div>
               {sandwichOrdersJSON.map(order => (
-                <div key={order.id} style={{
-                  padding: '10px',
-                  borderBottom: '1px solid #ccc',
-                  marginBottom: '10px', 
-                  borderRadius: '5px', 
-                  backgroundColor: 'white', 
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)' 
-                }}>
-                  <p style={{ fontWeight: 'bold', color: '#333' }}>{order.name} - Quantity: {order.quantity}</p>
+                <div key={order.id} className="cart-item">
+                  <p className="cart-item-text">
+                    {order.name} - Quantity: {order.quantity}
+                  </p>
                 </div>
               ))}
             </div>
-            { sandwichOrdersJSON.length > 0 && (
-              <button type="submit" onClick={handleSubmit} style={{
-                width: '100%', 
-                padding: '10px 0', 
-                backgroundColor: '#FF69B4', 
-                color: 'white', 
-                border: 'none', 
-                borderRadius: '5px', 
-                cursor: 'pointer',
-                fontSize: '16px', 
-                fontWeight: 'bold' 
-              }}>
+            {sandwichOrdersJSON.length > 0 && (
+              <button type="submit" onClick={handleSubmit} className="place-order-btn">
                 Place order
               </button>
             )}
           </div>            
         </form>   
       </div>
- 
     </div>
   );
 }
